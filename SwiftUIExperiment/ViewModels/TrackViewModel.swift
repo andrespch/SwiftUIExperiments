@@ -15,16 +15,17 @@ class TrackViewModel: ObservableObject {
         if let date = track.releaseDate {
             self.title = dateFormatter.string(from: date)
         }
-        
+
         cancellable = Timer.publish(every: 1, on: .main, in: .default)
-//            .autoconnect()
+            .autoconnect()
             .map { [weak self] time in
                 self?.dateFormatter.string(from: time) ?? "nothing"
-            }
-            .assign(to: \.title, on: self)
+            }.sink(receiveValue: { [weak self] value in
+                self?.title = value
+            })
     }
     
     deinit {
-        print("deinit track view model")
+        print("trackViewModel deinit")
     }
 }

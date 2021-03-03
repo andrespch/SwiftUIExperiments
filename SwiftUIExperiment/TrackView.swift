@@ -19,7 +19,6 @@ struct TrackView: View {
     private var anotherDeinitable = AnotherDeinitable()
     
     init(viewModel: TrackViewModel) {
-        print("track view init")
         self.viewModel = viewModel
     }
     
